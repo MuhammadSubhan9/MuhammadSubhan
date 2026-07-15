@@ -325,6 +325,14 @@ button:hover {
 
 @media(max-width:900px){
 
+    .hero h1{
+
+    font-size:45px;
+
+    line-height:1.1;
+
+}
+    
     nav ul{
 
     position:absolute;
