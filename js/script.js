@@ -23,3 +23,15 @@ menuToggle.onclick = () => {
     navLinks.classList.toggle("active");
 
 };
+const menuToggle = document.querySelector(".menu-toggle");
+const navLinks = document.querySelector("nav ul");
+
+if(menuToggle){
+
+menuToggle.addEventListener("click",()=>{
+
+    navLinks.classList.toggle("active");
+
+});
+
+}
