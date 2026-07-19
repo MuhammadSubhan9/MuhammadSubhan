@@ -11607,3 +11607,77 @@ on .back-to-top if they override this design.
         display: none;
     }
 }
+/* =================================
+   MOBILE MENU CLICK FIX
+================================= */
+
+.menu-toggle {
+    position: relative;
+    z-index: 3;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    color: white;
+    font: inherit;
+    font-size: 1.65rem;
+    line-height: 1;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.055);
+}
+
+.menu-toggle span {
+    display: block;
+    pointer-events: none;
+}
+
+.menu-toggle:focus-visible {
+    outline: 3px solid rgba(52, 211, 153, 0.55);
+    outline-offset: 3px;
+}
+
+/* Hidden overlays must never intercept taps */
+.command-palette:not(.open),
+.page-transition:not(:is(
+    body.page-enter *,
+    body.page-exit *
+)) {
+    pointer-events: none;
+}
+
+@media (max-width: 900px) {
+    nav {
+        z-index: 5000;
+        overflow: visible;
+    }
+
+    .menu-toggle {
+        display: grid;
+        flex: 0 0 auto;
+        place-items: center;
+    }
+
+    .nav-links {
+        z-index: 2;
+        max-height: calc(100vh - 115px);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    body.mobile-menu-open {
+        overflow: hidden;
+    }
+}
+
+@media (min-width: 901px) {
+    .menu-toggle {
+        display: none;
+    }
+}
