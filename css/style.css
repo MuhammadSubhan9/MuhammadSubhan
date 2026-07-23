@@ -11681,3 +11681,1262 @@ on .back-to-top if they override this design.
         display: none;
     }
 }
+/* =================================
+   ADAPTIVE PERFORMANCE MODE
+================================= */
+
+html[data-msa-performance="lite"] .particles,
+html[data-msa-performance="lite"] .custom-cursor,
+html[data-msa-performance="lite"] .custom-cursor-dot {
+    display: none !important;
+}
+
+html[data-msa-performance="lite"] *,
+html[data-msa-performance="lite"] *::before,
+html[data-msa-performance="lite"] *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+}
+
+html[data-msa-performance="lite"] nav,
+html[data-msa-performance="lite"] footer {
+    backdrop-filter: none;
+}
+/* ==========================================================
+                    OPTICAL TYPOGRAPHY
+========================================================== */
+
+html {
+    font-kerning: normal;
+    text-rendering: optimizeLegibility;
+}
+
+body {
+    font-feature-settings:
+        "kern" 1,
+        "liga" 1,
+        "calt" 1;
+}
+
+/* Balanced headings */
+
+h1,
+h2,
+h3,
+.hero-title,
+.hero-signature h1,
+.cert-hero h1,
+.skills-hero h1,
+.journey-hero h1,
+.contact-hero h1 {
+    text-wrap: balance;
+    hanging-punctuation: first last;
+}
+
+/* Cleaner paragraph wrapping */
+
+p,
+li,
+.description,
+.hero-subtitle,
+.cert-card p,
+.skill-card p,
+.about-section p,
+.milestone p,
+.contact-card p {
+    text-wrap: pretty;
+}
+
+/* Prevent awkward final single words where supported */
+
+@supports (text-wrap: pretty) {
+    p {
+        text-wrap: pretty;
+    }
+}
+/* ==========================================================
+                CONNECTION RECOVERY INDICATOR
+========================================================== */
+
+.connection-status {
+    position: fixed;
+    top: 105px;
+    left: 50%;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 12px 18px;
+
+    color: #FFFFFF;
+    background: rgba(220, 38, 38, 0.95);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.18);
+
+    border-radius: 999px;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.35);
+
+    backdrop-filter: blur(18px);
+
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+
+    z-index: 10000;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform:
+        translate(-50%, -20px)
+        scale(0.96);
+
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease,
+        transform 0.4s cubic-bezier(.22, 1, .36, 1),
+        background 0.3s ease;
+}
+
+.connection-status.is-visible {
+    opacity: 1;
+    visibility: visible;
+
+    transform:
+        translate(-50%, 0)
+        scale(1);
+}
+
+.connection-status.is-online {
+    background: rgba(22, 163, 74, 0.95);
+}
+
+.connection-status__dot {
+    width: 8px;
+    height: 8px;
+
+    flex-shrink: 0;
+
+    background: currentColor;
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 12px currentColor;
+}
+
+@media (max-width: 600px) {
+    .connection-status {
+        top: 90px;
+        width: max-content;
+        max-width: calc(100% - 32px);
+
+        justify-content: center;
+
+        font-size: 13px;
+        text-align: center;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .connection-status {
+        transition:
+            opacity 0.15s ease,
+            visibility 0.15s ease;
+    }
+}
+/* ==========================================================
+                    EXTERNAL LINKS
+========================================================== */
+
+.external-link__icon {
+    display: inline-block;
+
+    margin-left: 0.35em;
+
+    font-size: 0.8em;
+    line-height: 1;
+
+    opacity: 0.72;
+
+    transform:
+        translateY(-0.08em);
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+}
+
+.external-link:hover .external-link__icon,
+.external-link:focus-visible .external-link__icon {
+    opacity: 1;
+
+    transform:
+        translate(2px, -2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .external-link__icon {
+        transition: none;
+    }
+}
+/* ==========================================================
+                FIRST-VISIT CINEMATIC WELCOME
+========================================================== */
+
+.cinematic-welcome {
+    position: fixed;
+    inset: 0;
+
+    display: grid;
+    place-items: center;
+
+    overflow: hidden;
+
+    color: #FFFFFF;
+    background:
+        radial-gradient(
+            circle at 50% 52%,
+            rgba(17, 44, 60, 0.48),
+            transparent 37%
+        ),
+        #020408;
+
+    z-index: 99999;
+
+    isolation: isolate;
+}
+
+/*
+Hide it immediately when this browser tab
+has already completed the welcome.
+*/
+
+.welcome-already-seen .cinematic-welcome {
+    display: none;
+}
+
+.cinematic-welcome__atmosphere {
+    position: absolute;
+    inset: 0;
+
+    overflow: hidden;
+
+    pointer-events: none;
+}
+
+.cinematic-welcome__glow {
+    position: absolute;
+    left: 50%;
+    top: 52%;
+
+    width: min(900px, 90vw);
+    height: min(500px, 60vh);
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(34, 197, 94, 0.13),
+            rgba(59, 130, 246, 0.07) 42%,
+            transparent 70%
+        );
+
+    filter: blur(35px);
+
+    opacity: 0;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0.7);
+
+    animation:
+        cinematicGlow 4.7s ease forwards;
+}
+
+.cinematic-welcome__grid {
+    position: absolute;
+    inset: -20%;
+
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, 0.023) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.023) 1px,
+            transparent 1px
+        );
+
+    background-size: 70px 70px;
+
+    mask-image:
+        radial-gradient(
+            circle at center,
+            black,
+            transparent 68%
+        );
+
+    opacity: 0;
+
+    transform:
+        perspective(700px)
+        rotateX(63deg)
+        translateY(29%);
+
+    animation:
+        cinematicGrid 4.7s ease forwards;
+}
+
+.cinematic-welcome__grain {
+    position: absolute;
+    inset: -50%;
+
+    opacity: 0.045;
+
+    background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.7'/%3E%3C/svg%3E");
+
+    animation:
+        cinematicGrain 0.25s steps(2) infinite;
+}
+
+.cinematic-welcome__flight-line {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+
+    width: min(720px, 74vw);
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(34, 197, 94, 0.15),
+            rgba(34, 197, 94, 0.9),
+            rgba(34, 197, 94, 0.15),
+            transparent
+        );
+
+    opacity: 0;
+
+    transform:
+        translate(-50%, -50%)
+        scaleX(0);
+
+    transform-origin: center;
+
+    box-shadow:
+        0 0 18px rgba(34, 197, 94, 0.35);
+
+    animation:
+        cinematicFlightLine 1.2s
+        cubic-bezier(.22, 1, .36, 1)
+        0.25s forwards;
+}
+
+.cinematic-welcome__flight-dot {
+    position: absolute;
+    left: calc(50% - min(360px, 37vw));
+    top: 50%;
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: #86EFAC;
+
+    opacity: 0;
+
+    box-shadow:
+        0 0 8px #22C55E,
+        0 0 25px rgba(34, 197, 94, 0.8);
+
+    animation:
+        cinematicFlightDot 1.2s ease
+        0.28s forwards;
+}
+
+.cinematic-welcome__content {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+
+    text-align: center;
+
+    pointer-events: none;
+
+    z-index: 2;
+}
+
+.cinematic-welcome__opening,
+.cinematic-welcome__closing,
+.cinematic-welcome__fields,
+.cinematic-welcome__identity {
+    opacity: 0;
+}
+
+.cinematic-welcome__opening {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+
+    width: 100%;
+
+    color: rgba(255, 255, 255, 0.82);
+
+    font-size:
+        clamp(18px, 2.1vw, 30px);
+
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0.025em;
+
+    transform:
+        translate(-50%, -45%);
+
+        animation:
+        cinematicOpening 2.8s ease
+        0.7s forwards;
+}
+
+.cinematic-welcome__identity {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    animation:
+        cinematicIdentity 1.4s
+        cubic-bezier(.22, 1, .36, 1)
+        2.75s both;
+}
+
+.cinematic-welcome__eyebrow {
+    margin-bottom: 16px;
+
+    color: #86EFAC;
+
+    font-size:
+        clamp(9px, 0.9vw, 12px);
+
+    font-weight: 700;
+    letter-spacing: 0.42em;
+}
+
+.cinematic-welcome h1 {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.22em;
+
+    margin: 0 auto;
+
+    color: #FFFFFF;
+
+    font-size:
+        clamp(45px, 8vw, 110px);
+
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.055em;
+
+    text-align: center;
+
+    text-shadow:
+        0 0 45px rgba(255, 255, 255, 0.08);
+}
+
+.cinematic-welcome h1 span {
+    display: inline-block;
+}
+
+.cinematic-welcome__fields {
+    margin-top: 25px;
+
+    color: rgba(255, 255, 255, 0.62);
+
+    font-size:
+        clamp(10px, 1vw, 13px);
+
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+
+    animation:
+    cinematicFields 1s ease
+    3.75s both;
+}
+
+.cinematic-welcome__fields span {
+    margin: 0 13px;
+
+    color: #22C55E;
+}
+
+.cinematic-welcome__closing {
+    position: absolute;
+    left: 50%;
+    top: calc(50% + 115px);
+
+    width: 100%;
+
+    color: rgba(255, 255, 255, 0.76);
+
+    font-size:
+        clamp(14px, 1.45vw, 19px);
+
+    font-weight: 400;
+    letter-spacing: 0.03em;
+
+    transform:
+        translateX(-50%);
+
+        animation:
+        cinematicClosing 1s ease
+        4.7s both;
+}
+
+.cinematic-welcome__skip {
+    position: absolute;
+    top: 24px;
+    right: 28px;
+
+    width: auto;
+    min-width: 0;
+    height: auto;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0;
+    padding: 10px 16px;
+
+    color: rgba(255, 255, 255, 0.65);
+    background: rgba(255, 255, 255, 0.04);
+
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 999px;
+
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.12em;
+    text-align: center;
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    opacity: 0;
+
+    overflow: visible;
+
+    transform: none !important;
+
+    z-index: 20;
+    pointer-events: auto;
+    
+    animation:
+        cinematicSkip 0.6s ease
+        1s forwards;
+
+    transition:
+        color 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease;
+}
+.cinematic-welcome__skip:hover,
+.cinematic-welcome__skip:focus-visible {
+    color: #FFFFFF;
+
+    background:
+        rgba(255, 255, 255, 0.09);
+
+    border-color:
+        rgba(255, 255, 255, 0.32);
+
+    transform: none !important;
+
+    box-shadow: none;
+}
+
+.cinematic-welcome__exit {
+    position: absolute;
+    inset: 0;
+
+    background: #020408;
+
+    pointer-events: none;
+
+    transform:
+        translateY(100%);
+
+    z-index: 10;
+}
+
+/* Exit animation starts when JS adds this class. */
+
+.cinematic-welcome.is-leaving {
+    pointer-events: none;
+
+    animation:
+        cinematicWelcomeFade 1.4s
+        cubic-bezier(.76, 0, .24, 1)
+        forwards;
+}
+
+.cinematic-welcome.is-leaving
+.cinematic-welcome__exit {
+    animation:
+        cinematicCurtain 1.4s
+        cubic-bezier(.76, 0, .24, 1)
+        forwards;
+}
+
+/* Lock the page while the introduction is playing. */
+
+body.cinematic-welcome-active {
+    overflow: hidden;
+}
+
+/* Animations */
+
+@keyframes cinematicCurtain {
+    0% {
+        transform: translateY(100%);
+    }
+
+    45% {
+        transform: translateY(0);
+    }
+
+    55% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes cinematicWelcomeFade {
+    0% {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    65% {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+@keyframes cinematicSkip {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes cinematicGlow {
+    0% {
+        opacity: 0;
+        transform:
+            translate(-50%, -50%)
+            scale(0.7);
+    }
+
+    35%,
+    82% {
+        opacity: 1;
+        transform:
+            translate(-50%, -50%)
+            scale(1);
+    }
+
+    100% {
+        opacity: 0.55;
+        transform:
+            translate(-50%, -50%)
+            scale(1.12);
+    }
+}
+
+@keyframes cinematicGrid {
+    0% {
+        opacity: 0;
+    }
+
+    35%,
+    85% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.25;
+    }
+}
+
+@keyframes cinematicFlightLine {
+    0% {
+        opacity: 0;
+        transform:
+            translate(-50%, -50%)
+            scaleX(0);
+    }
+
+    40% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform:
+            translate(-50%, -50%)
+            scaleX(1);
+    }
+}
+
+@keyframes cinematicFlightDot {
+    0% {
+        opacity: 0;
+        transform:
+            translateX(0)
+            scale(0.6);
+    }
+
+    25% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform:
+            translateX(min(720px, 74vw))
+            scale(1);
+    }
+}
+
+@keyframes cinematicIdentity {
+    0% {
+        opacity: 0;
+        visibility: visible;
+        filter: blur(10px);
+
+        transform:
+            translateY(24px)
+            scale(0.97);
+    }
+
+    35% {
+        opacity: 1;
+        visibility: visible;
+        filter: blur(0);
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+
+    100% {
+        opacity: 1;
+        visibility: visible;
+        filter: blur(0);
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+@keyframes cinematicFields {
+    0% {
+        opacity: 0;
+        filter: blur(6px);
+
+        transform:
+            translateY(12px);
+    }
+
+    100% {
+        opacity: 1;
+        filter: blur(0);
+
+        transform:
+            translateY(0);
+    }
+}
+
+@keyframes cinematicClosing {
+    0% {
+        opacity: 0;
+        filter: blur(6px);
+
+        transform:
+            translate(-50%, 12px);
+    }
+
+    100% {
+        opacity: 1;
+        filter: blur(0);
+
+        transform:
+            translate(-50%, 0);
+    }
+}
+
+@keyframes cinematicOpening {
+    0% {
+        opacity: 0;
+        filter: blur(8px);
+
+        transform:
+            translate(-50%, -35%);
+    }
+
+    18% {
+        opacity: 1;
+        filter: blur(0);
+
+        transform:
+            translate(-50%, -50%);
+    }
+
+    78% {
+        opacity: 1;
+        filter: blur(0);
+
+        transform:
+            translate(-50%, -50%);
+    }
+
+    100% {
+        opacity: 0;
+        filter: blur(4px);
+
+        transform:
+            translate(-50%, -65%);
+    }
+}
+
+/* ==========================================================
+                SECTION CONSTELLATION NAVIGATOR
+========================================================== */
+
+.section-constellation {
+    position: fixed !important;
+
+    top: 50% !important;
+    right: 10px !important;
+    left: auto !important;
+
+    width: 12px !important;
+    min-width: 12px !important;
+    max-width: 12px !important;
+    height: auto !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 15px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+
+    transform: translateY(-50%) !important;
+
+    opacity: 0;
+    pointer-events: auto;
+
+    z-index: 4000;
+
+    animation: none !important;
+
+    transition: opacity 0.5s ease;
+}
+
+.section-constellation.is-ready {
+    opacity: 1;
+}
+
+.section-constellation::before {
+    content: "";
+
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    left: 50%;
+
+    width: 1px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent,
+            rgba(255, 255, 255, 0.18),
+            transparent
+        );
+
+    transform: translateX(-50%);
+
+    pointer-events: none;
+
+    z-index: -1;
+}
+
+.constellation-item {
+    position: relative;
+
+    width: 12px;
+    min-width: 12px;
+    height: 12px;
+
+    display: block;
+
+    margin: 0;
+    padding: 0;
+
+    background: transparent;
+
+    border: 0;
+    border-radius: 50%;
+
+    box-shadow: none;
+
+    cursor: pointer;
+
+    overflow: visible;
+
+    transform: none !important;
+}
+
+.constellation-dot {
+    position: absolute;
+    inset: 2px;
+
+    display: block;
+
+    background:
+        rgba(255, 255, 255, 0.3);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.22);
+
+    border-radius: 50%;
+
+    transform: scale(1);
+
+    transition:
+        transform 0.35s
+            cubic-bezier(.22, 1, .36, 1),
+        background 0.35s ease,
+        border-color 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+.constellation-label {
+    position: absolute;
+    top: 50%;
+    right: 26px;
+
+    min-width: max-content;
+
+    padding: 8px 11px;
+
+    color:
+        rgba(255, 255, 255, 0.82);
+
+    background:
+        rgba(7, 12, 22, 0.86);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.11);
+
+    border-radius: 9px;
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    font-size: 11px;
+    font-weight: 650;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+
+    opacity: 0;
+    pointer-events: none;
+
+    transform:
+        translateY(-50%)
+        translateX(8px);
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+}
+
+.constellation-item:hover
+.constellation-label,
+.constellation-item:focus-visible
+.constellation-label {
+    opacity: 1;
+
+    transform:
+        translateY(-50%)
+        translateX(0);
+}
+
+.constellation-item:hover
+.constellation-dot,
+.constellation-item:focus-visible
+.constellation-dot {
+    background:
+        rgba(255, 255, 255, 0.78);
+
+    transform: scale(1.45);
+}
+
+.constellation-item.is-active
+.constellation-dot {
+    background: #34D399;
+
+    border-color:
+        rgba(52, 211, 153, 0.9);
+
+    transform: scale(1.8);
+
+    box-shadow:
+        0 0 0 5px
+        rgba(52, 211, 153, 0.1),
+        0 0 19px
+        rgba(52, 211, 153, 0.65);
+}
+
+.constellation-item.is-passed
+.constellation-dot {
+    background:
+        rgba(52, 211, 153, 0.5);
+
+    border-color:
+        rgba(52, 211, 153, 0.42);
+}
+
+.constellation-item:focus-visible {
+    outline:
+        2px solid rgba(52, 211, 153, 0.7);
+
+    outline-offset: 6px;
+}
+
+.section-constellation
+.button-ripple {
+    display: none !important;
+}
+
+body.cinematic-welcome-active
+.section-constellation {
+    opacity: 0;
+    pointer-events: none;
+}
+
+@media (max-width: 850px) {
+    .section-constellation {
+        right: 8px;
+        gap: 13px;
+    }
+
+    .constellation-label {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .section-constellation {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .section-constellation,
+    .constellation-dot,
+    .constellation-label {
+        transition: none;
+    }
+}
+
+/* Force constellation to the right edge */
+nav.section-constellation {
+    left: auto !important;
+    right: 8px !important;
+
+    width: fit-content !important;
+    max-width: none !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    transform: translateY(-50%) !important;
+}
+
+/* ==========================================================
+                SECTION ARRIVAL ANIMATION
+========================================================== */
+
+body > section:not(#cinematicWelcome) h1,
+body > section:not(#cinematicWelcome) h2,
+body > section:not(#cinematicWelcome) h3 {
+    position: relative;
+}
+
+body > section:not(#cinematicWelcome) h1::after,
+body > section:not(#cinematicWelcome) h2::after,
+body > section:not(#cinematicWelcome) h3::after {
+    content: "";
+
+    position: absolute;
+    left: 50%;
+    bottom: -12px;
+
+    width: 52px;
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #34D399,
+            transparent
+        );
+
+    border-radius: 999px;
+
+    opacity: 0;
+
+    transform:
+        translateX(-50%)
+        scaleX(0);
+
+    transform-origin: center;
+
+    transition:
+        opacity 0.45s ease,
+        transform 0.65s
+            cubic-bezier(.22, 1, .36, 1);
+}
+
+body > section.section-arrived h1,
+body > section.section-arrived h2,
+body > section.section-arrived h3 {
+    animation:
+        sectionHeadingArrival
+        0.9s ease both;
+}
+
+body > section.section-arrived h1::after,
+body > section.section-arrived h2::after,
+body > section.section-arrived h3::after {
+    opacity: 1;
+
+    transform:
+        translateX(-50%)
+        scaleX(1);
+}
+
+@keyframes sectionHeadingArrival {
+    0% {
+        opacity: 0.55;
+
+        filter:
+            drop-shadow(
+                0 0 0
+                rgba(52, 211, 153, 0)
+            );
+
+        transform:
+            translateY(10px);
+    }
+
+    45% {
+        opacity: 1;
+
+        filter:
+            drop-shadow(
+                0 0 16px
+                rgba(52, 211, 153, 0.45)
+            );
+    }
+
+    100% {
+        opacity: 1;
+
+        filter:
+            drop-shadow(
+                0 0 0
+                rgba(52, 211, 153, 0)
+            );
+
+        transform:
+            translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body > section.section-arrived h1,
+    body > section.section-arrived h2,
+    body > section.section-arrived h3 {
+        animation: none;
+    }
+
+    body > section:not(#cinematicWelcome) h1::after,
+    body > section:not(#cinematicWelcome) h2::after,
+    body > section:not(#cinematicWelcome) h3::after {
+        transition: none;
+    }
+}
